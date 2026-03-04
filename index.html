@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✅ SEO: Title (50-60 chars, keyword first) -->
+  <title>Laravel API Starter Kit – REST API Boilerplate with Sanctum & Spatie</title>
+
+  <!-- ✅ SEO: Meta description (150-160 chars) -->
+  <meta name="description" content="Laravel REST API boilerplate with Sanctum auth, Spatie roles & permissions, rate limiting, API versioning, and consistent error handling. One-time payment.">
+
+  <!-- ✅ SEO: Keywords -->
+  <meta name="keywords" content="laravel api starter kit, laravel rest api boilerplate, laravel sanctum boilerplate, laravel spatie permissions starter, laravel api template 2026">
+
+  <!-- ✅ SEO: Canonical -->
+  <link rel="canonical" href="https://pola5h.github.io/laravel-api-starter/">
+
+  <!-- ✅ SEO: Open Graph -->
+  <meta property="og:type" content="product">
+  <meta property="og:title" content="Laravel API Starter Kit – Production-Ready REST API Boilerplate">
+  <meta property="og:description" content="Stop setting up auth, roles, and error handling from scratch. Get a production-ready Laravel REST API boilerplate. One-time $39.">
+  <meta property="og:url" content="https://pola5h.github.io/laravel-api-starter/">
+  <meta property="og:site_name" content="pola5h">
+
+  <!-- ✅ SEO: Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Laravel API Starter Kit">
+  <meta name="twitter:description" content="Production-ready Laravel REST API boilerplate. Sanctum auth, Spatie roles, rate limiting, versioning. $39 one-time.">
+
+  <!-- ✅ SEO: Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Laravel API Starter Kit",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Linux, macOS, Windows",
+    "description": "Production-ready Laravel REST API boilerplate with Sanctum authentication, Spatie roles and permissions, rate limiting, API versioning, and consistent error handling.",
+    "offers": {
+      "@type": "Offer",
+      "price": "39",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "pola5h"
+    }
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --accent: #4f46e5;
+      --accent-light: #eef2ff;
+      --dark: #0f0f13;
+      --mid: #1e1e2e;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+    code, pre, .mono { font-family: 'DM Mono', monospace; }
+
+    /* Animated gradient border on hero code block */
+    .code-wrap {
+      position: relative;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(135deg, #4f46e5, #818cf8, #4f46e5);
+      background-size: 300% 300%;
+      animation: gradBorder 4s ease infinite;
+    }
+    @keyframes gradBorder {
+      0%,100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .code-inner { background: var(--dark); border-radius: 14px; overflow: hidden; }
+
+    /* Feature card hover */
+    .feat-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .feat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px -8px rgba(79,70,229,0.12);
+      border-color: #c7d2fe;
+    }
+
+    /* Fade-in on scroll */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .revealed { opacity: 1; transform: translateY(0); }
+
+    /* Pill badge */
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 999px; }
+
+    /* Buy button pulse */
+    .btn-buy {
+      position: relative;
+      background: var(--accent);
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-buy:hover { background: #4338ca; transform: translateY(-2px); }
+    .btn-buy:active { transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Nav -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">L</div>
+        <span class="font-bold text-base tracking-tight">Laravel<span class="text-indigo-600">API</span> Starter</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500">
+        <a href="#features" class="hover:text-indigo-600 transition">Features</a>
+        <a href="#inside" class="hover:text-indigo-600 transition">What's inside</a>
+        <a href="#pricing" class="hover:text-indigo-600 transition">Pricing</a>
+        <a href="#faq" class="hover:text-indigo-600 transition">FAQ</a>
+      </nav>
+      <a href="https://cod3xlab.gumroad.com/l/laravel-api-starter" class="btn-buy text-white text-sm font-bold px-5 py-2.5 rounded-full shadow-md shadow-indigo-100 flex items-center gap-2">
+        <i class="fas fa-bolt text-xs"></i> Buy – $39
+      </a>
+    </div>
+  </header>
+
+  <!-- ✅ Hero — H1 contains primary keyword -->
+  <section class="relative bg-gradient-to-b from-indigo-50/60 to-white pt-16 pb-24 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-5 grid lg:grid-cols-2 gap-14 items-center">
+      <div>
+        <div class="flex flex-wrap gap-3 mb-6">
+          <span class="pill bg-indigo-100 text-indigo-700"><i class="fas fa-check-circle"></i> Laravel 12</span>
+          <span class="pill bg-purple-100 text-purple-700"><i class="fas fa-shield-halved"></i> Sanctum</span>
+          <span class="pill bg-amber-100 text-amber-700"><i class="fas fa-users-gear"></i> Spatie</span>
+        </div>
+
+        <!-- ✅ H1 with primary keyword -->
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 leading-tight">
+          Laravel API Starter Kit<br>
+          <span class="text-indigo-600">– Skip the boilerplate</span>
+        </h1>
+
+        <p class="text-lg text-gray-600 mt-6 max-w-lg leading-relaxed">
+          A production-ready <strong>Laravel REST API boilerplate</strong> with Sanctum auth, Spatie roles &amp; permissions, rate limiting, API versioning, and consistent error handling. Clone it and start building your features immediately.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4 mt-8">
+          <a href="https://cod3xlab.gumroad.com/l/laravel-api-starter" class="btn-buy text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-indigo-200 flex items-center gap-3">
+            <i class="fas fa-download"></i> Buy now · $39
+          </a>
+          <a href="https://github.com/pola5h/laravel-api-starter" target="_blank" class="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition font-medium">
+            <i class="fab fa-github text-lg"></i> View on GitHub
+          </a>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4 mt-5 text-xs text-gray-400">
+          <span><i class="far fa-credit-card mr-1"></i> One-time payment</span>
+          <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+          <span><i class="fas fa-infinity mr-1"></i> Unlimited projects</span>
+          <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+          <span><i class="fab fa-laravel mr-1 text-red-400"></i> PHP 8.4+</span>
+        </div>
+      </div>
+
+      <!-- Code preview -->
+      <div class="code-wrap reveal">
+        <div class="code-inner">
+          <div class="flex items-center gap-1.5 px-4 py-3 border-b border-gray-800 bg-gray-900">
+            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            <span class="mono text-xs text-gray-500 ml-2">GET /api/v1/auth/me</span>
+          </div>
+          <pre class="p-5 text-sm mono overflow-x-auto leading-relaxed"><span class="text-gray-500">{</span>
+  <span class="text-sky-400">"success"</span><span class="text-gray-400">:</span> <span class="text-emerald-400">true</span><span class="text-gray-400">,</span>
+  <span class="text-sky-400">"data"</span><span class="text-gray-400">:</span> <span class="text-gray-500">{</span>
+    <span class="text-sky-400">"id"</span><span class="text-gray-400">:</span> <span class="text-orange-300">1</span><span class="text-gray-400">,</span>
+    <span class="text-sky-400">"name"</span><span class="text-gray-400">:</span> <span class="text-emerald-300">"John Doe"</span><span class="text-gray-400">,</span>
+    <span class="text-sky-400">"email"</span><span class="text-gray-400">:</span> <span class="text-emerald-300">"john@example.com"</span><span class="text-gray-400">,</span>
+    <span class="text-sky-400">"roles"</span><span class="text-gray-400">:</span> <span class="text-gray-500">[</span><span class="text-emerald-300">"admin"</span><span class="text-gray-500">]</span><span class="text-gray-400">,</span>
+    <span class="text-sky-400">"permissions"</span><span class="text-gray-400">:</span> <span class="text-gray-500">[</span>
+      <span class="text-emerald-300">"view users"</span><span class="text-gray-400">,</span>
+      <span class="text-emerald-300">"edit users"</span>
+    <span class="text-gray-500">]</span>
+  <span class="text-gray-500">}</span><span class="text-gray-400">,</span>
+  <span class="text-sky-400">"meta"</span><span class="text-gray-400">:</span> <span class="text-gray-500">{</span>
+    <span class="text-sky-400">"version"</span><span class="text-gray-400">:</span> <span class="text-emerald-300">"v1"</span><span class="text-gray-400">,</span>
+    <span class="text-sky-400">"timestamp"</span><span class="text-gray-400">:</span> <span class="text-emerald-300">"2026-03-04T10:00:00Z"</span>
+  <span class="text-gray-500">}</span>
+<span class="text-gray-500">}</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Problem section — helps SEO with natural language -->
+  <section class="max-w-6xl mx-auto px-5 py-16 reveal">
+    <div class="bg-gray-50 rounded-3xl p-10 border border-gray-100">
+      <h2 class="text-2xl font-bold text-center text-gray-800">Every new Laravel API project starts the same way</h2>
+      <div class="grid sm:grid-cols-3 gap-6 mt-10 text-center">
+        <div class="p-5">
+          <div class="text-3xl mb-3">😩</div>
+          <p class="font-semibold text-gray-800">Set up Sanctum auth again</p>
+          <p class="text-sm text-gray-500 mt-1">Register, login, logout, token refresh — every single project</p>
+        </div>
+        <div class="p-5">
+          <div class="text-3xl mb-3">📖</div>
+          <p class="font-semibold text-gray-800">Re-read Spatie docs again</p>
+          <p class="text-sm text-gray-500 mt-1">Roles, permissions, middleware, seeders — takes half a day</p>
+        </div>
+        <div class="p-5">
+          <div class="text-3xl mb-3">🔧</div>
+          <p class="font-semibold text-gray-800">Fix inconsistent error responses</p>
+          <p class="text-sm text-gray-500 mt-1">Your API returns different formats for different errors</p>
+        </div>
+      </div>
+      <p class="text-center text-indigo-600 font-semibold mt-8 text-lg">This starter kit handles all of that. Once.</p>
+    </div>
+  </section>
+
+  <!-- ✅ Features — H2 with secondary keywords -->
+  <section id="features" class="max-w-6xl mx-auto px-5 py-20">
+    <div class="text-center max-w-xl mx-auto reveal">
+      <!-- ✅ H2 with secondary keyword -->
+      <h2 class="text-3xl sm:text-4xl font-bold">What's included in the boilerplate</h2>
+      <p class="text-gray-500 mt-3 text-lg">Everything configured, nothing to wire up manually.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+      <div class="feat-card bg-white border border-gray-100 rounded-2xl p-7 reveal">
+        <div class="w-11 h-11 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl mb-5"><i class="fas fa-key"></i></div>
+        <!-- ✅ H3 keyword -->
+        <h3 class="font-bold text-lg">Sanctum Authentication</h3>
+        <p class="text-gray-500 text-sm mt-2 leading-relaxed">Register, login, logout, token refresh, and authenticated user endpoint. All form requests with validation included.</p>
+      </div>
+
+      <div class="feat-card bg-white border border-gray-100 rounded-2xl p-7 reveal">
+        <div class="w-11 h-11 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-xl mb-5"><i class="fas fa-users-gear"></i></div>
+        <h3 class="font-bold text-lg">Spatie Roles & Permissions</h3>
+        <p class="text-gray-500 text-sm mt-2 leading-relaxed">Pre-configured with Admin, Editor, User roles. Seeders ready. Role middleware attached to protected routes.</p>
+      </div>
+
+      <div class="feat-card bg-white border border-gray-100 rounded-2xl p-7 reveal">
+        <div class="w-11 h-11 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl mb-5"><i class="fas fa-gauge-high"></i></div>
+        <h3 class="font-bold text-lg">Rate Limiting</h3>
+        <p class="text-gray-500 text-sm mt-2 leading-relaxed">Per-user and per-IP throttling. Separate limits for auth routes (stricter) and general API routes. Configurable in one file.</p>
+      </div>
+
+      <div class="feat-card bg-white border border-gray-100 rounded-2xl p-7 reveal">
+        <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-xl mb-5"><i class="fas fa-code-branch"></i></div>
+        <h3 class="font-bold text-lg">API Versioning</h3>
+        <p class="text-gray-500 text-sm mt-2 leading-relaxed">Clean v1/v2 route structure. Controllers separated by version. Clients using v1 won't break when you ship v2.</p>
+      </div>
+
+      <div class="feat-card bg-white border border-gray-100 rounded-2xl p-7 reveal">
+        <div class="w-11 h-11 bg-red-50 text-red-500 rounded-xl flex items-center justify-center text-xl mb-5"><i class="fas fa-triangle-exclamation"></i></div>
+        <h3 class="font-bold text-lg">Consistent Error Handling</h3>
+        <p class="text-gray-500 text-sm mt-2 leading-relaxed">Global exception handler returns uniform JSON for validation errors, 404s, auth failures, and server exceptions.</p>
+      </div>
+
+      <div class="feat-card bg-white border border-gray-100 rounded-2xl p-7 reveal">
+        <div class="w-11 h-11 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center text-xl mb-5"><i class="fas fa-file-import"></i></div>
+        <h3 class="font-bold text-lg">Postman Collection</h3>
+        <p class="text-gray-500 text-sm mt-2 leading-relaxed">Pre-built requests for every endpoint with environment variables. Import and start testing in under a minute.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ What's inside -->
+  <section id="inside" class="bg-gray-950 text-white py-20">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="text-center mb-14 reveal">
+        <h2 class="text-3xl font-bold">Full project structure</h2>
+        <p class="text-gray-400 mt-3">A complete Laravel app — not just snippets.</p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-10 items-start">
+        <!-- File tree -->
+        <div class="bg-gray-900 rounded-2xl border border-gray-800 p-7 reveal">
+          <p class="mono text-xs text-gray-500 mb-5">📁 laravel-api-starter/</p>
+          <div class="space-y-2 mono text-sm text-gray-300">
+            <div class="flex items-center gap-2 text-indigo-400 font-medium"><i class="fas fa-folder-open w-4"></i> app/Http/Controllers/Api/</div>
+            <div class="ml-6 text-gray-400">└── V1/AuthController.php</div>
+            <div class="ml-6 text-gray-400">└── V1/UserController.php</div>
+            <div class="flex items-center gap-2 text-indigo-400 font-medium mt-2"><i class="fas fa-folder-open w-4"></i> app/Traits/</div>
+            <div class="ml-6 text-gray-400">└── ApiResponseTrait.php</div>
+            <div class="flex items-center gap-2 text-indigo-400 font-medium mt-2"><i class="fas fa-folder-open w-4"></i> app/Exceptions/</div>
+            <div class="ml-6 text-gray-400">└── Handler.php</div>
+            <div class="flex items-center gap-2 text-indigo-400 font-medium mt-2"><i class="fas fa-folder-open w-4"></i> database/seeders/</div>
+            <div class="ml-6 text-gray-400">└── RolePermissionSeeder.php</div>
+            <div class="flex items-center gap-2 text-indigo-400 font-medium mt-2"><i class="fas fa-folder-open w-4"></i> routes/</div>
+            <div class="ml-6 text-gray-400">└── api.php (versioned)</div>
+            <div class="flex items-center gap-2 text-indigo-400 font-medium mt-2"><i class="fas fa-file w-4"></i> postman_collection.json</div>
+            <div class="flex items-center gap-2 text-indigo-400 font-medium"><i class="fas fa-file w-4"></i> README.md</div>
+          </div>
+        </div>
+
+        <!-- Checklist -->
+        <div class="space-y-4 reveal">
+          <h3 class="font-bold text-lg text-white">Everything configured out of the box</h3>
+          <ul class="space-y-4">
+            <li class="flex gap-3 items-start"><i class="fas fa-check text-indigo-400 mt-1"></i><span class="text-gray-300">Laravel 12 clean base — PHP 8.4+ ready</span></li>
+            <li class="flex gap-3 items-start"><i class="fas fa-check text-indigo-400 mt-1"></i><span class="text-gray-300">Sanctum auth — register, login, logout, refresh, me</span></li>
+            <li class="flex gap-3 items-start"><i class="fas fa-check text-indigo-400 mt-1"></i><span class="text-gray-300">Spatie roles & permissions with seeders (Admin, Editor, User)</span></li>
+            <li class="flex gap-3 items-start"><i class="fas fa-check text-indigo-400 mt-1"></i><span class="text-gray-300">ApiResponseTrait — consistent JSON format everywhere</span></li>
+            <li class="flex gap-3 items-start"><i class="fas fa-check text-indigo-400 mt-1"></i><span class="text-gray-300">Global exception handler — uniform errors for all exceptions</span></li>
+            <li class="flex gap-3 items-start"><i class="fas fa-check text-indigo-400 mt-1"></i><span class="text-gray-300">Rate limiters — api, auth, strict — configurable in config/api.php</span></li>
+            <li class="flex gap-3 items-start"><i class="fas fa-check text-indigo-400 mt-1"></i><span class="text-gray-300">API versioning — v1 routes, v2 folder ready</span></li>
+            <li class="flex gap-3 items-start"><i class="fas fa-check text-indigo-400 mt-1"></i><span class="text-gray-300">Postman collection — all endpoints with environment variables</span></li>
+            <li class="flex gap-3 items-start"><i class="fas fa-check text-indigo-400 mt-1"></i><span class="text-gray-300">Detailed README — setup guide and endpoint reference</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Pricing — honest, no fake claims -->
+  <section id="pricing" class="max-w-6xl mx-auto px-5 py-20 reveal">
+    <div class="max-w-xl mx-auto bg-indigo-600 rounded-3xl text-white p-10 text-center shadow-2xl shadow-indigo-100">
+      <h2 class="text-3xl font-black">One-time payment</h2>
+      <p class="text-indigo-200 mt-3 text-lg">Buy once, use on all your projects. No subscriptions, no recurring fees.</p>
+      <div class="mt-8">
+        <span class="text-6xl font-black">$39</span>
+      </div>
+      <ul class="mt-8 space-y-3 text-indigo-100 text-left max-w-xs mx-auto">
+        <li class="flex gap-3"><i class="fas fa-check-circle text-white mt-0.5"></i> Complete Laravel project (not snippets)</li>
+        <li class="flex gap-3"><i class="fas fa-check-circle text-white mt-0.5"></i> Postman collection included</li>
+        <li class="flex gap-3"><i class="fas fa-check-circle text-white mt-0.5"></i> Detailed README documentation</li>
+        <li class="flex gap-3"><i class="fas fa-check-circle text-white mt-0.5"></i> Unlimited personal & client projects</li>
+        <li class="flex gap-3"><i class="fas fa-check-circle text-white mt-0.5"></i> Instant download via Gumroad</li>
+      </ul>
+      <a href="https://cod3xlab.gumroad.com/l/laravel-api-starter" class="inline-flex items-center gap-3 mt-10 bg-white text-indigo-700 hover:bg-indigo-50 font-bold px-10 py-4 rounded-xl text-lg transition shadow-lg">
+        <i class="fas fa-shopping-cart"></i> Buy on Gumroad · $39
+      </a>
+      <p class="text-xs text-indigo-300 mt-4">Secure payment via Gumroad · Instant download</p>
+    </div>
+  </section>
+
+  <!-- ✅ FAQ — natural language for SEO long-tail keywords -->
+  <section id="faq" class="max-w-4xl mx-auto px-5 py-20">
+    <h2 class="text-3xl font-bold text-center reveal">Frequently asked questions</h2>
+    <div class="mt-12 grid sm:grid-cols-2 gap-6">
+      <div class="bg-gray-50 p-6 rounded-2xl reveal">
+        <h3 class="font-semibold text-base flex items-center gap-2"><i class="fas fa-circle-question text-indigo-500"></i> Is this a complete Laravel project?</h3>
+        <p class="text-gray-600 text-sm mt-2">Yes — a full Laravel application with migrations, seeders, routes, controllers, and middleware. Clone it, run composer install and php artisan migrate --seed, and it works.</p>
+      </div>
+      <div class="bg-gray-50 p-6 rounded-2xl reveal">
+        <h3 class="font-semibold text-base flex items-center gap-2"><i class="fas fa-circle-question text-indigo-500"></i> Which Laravel version does it support?</h3>
+        <p class="text-gray-600 text-sm mt-2">It's built on Laravel 12 with PHP 8.4+.</p>
+      </div>
+      <div class="bg-gray-50 p-6 rounded-2xl reveal">
+        <h3 class="font-semibold text-base flex items-center gap-2"><i class="fas fa-circle-question text-indigo-500"></i> Can I use it for client projects?</h3>
+        <p class="text-gray-600 text-sm mt-2">Yes, unlimited commercial use. No extra license fees for client work.</p>
+      </div>
+      <div class="bg-gray-50 p-6 rounded-2xl reveal">
+        <h3 class="font-semibold text-base flex items-center gap-2"><i class="fas fa-circle-question text-indigo-500"></i> Does it include Spatie permissions?</h3>
+        <p class="text-gray-600 text-sm mt-2">Yes — spatie/laravel-permission is installed, configured, and seeded with Admin, Editor, and User roles out of the box.</p>
+      </div>
+      <div class="bg-gray-50 p-6 rounded-2xl reveal">
+        <h3 class="font-semibold text-base flex items-center gap-2"><i class="fas fa-circle-question text-indigo-500"></i> Is there a refund policy?</h3>
+        <p class="text-gray-600 text-sm mt-2">No refunds — this is a digital download. Please check the GitHub README before purchasing to make sure it fits your needs.</p>
+      </div>
+      <div class="bg-gray-50 p-6 rounded-2xl reveal">
+        <h3 class="font-semibold text-base flex items-center gap-2"><i class="fas fa-circle-question text-indigo-500"></i> How do I get the files after purchase?</h3>
+        <p class="text-gray-600 text-sm mt-2">After purchase on Gumroad, you get an instant download link. You receive a zip file with the full Laravel project.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Final CTA -->
+  <section class="max-w-4xl mx-auto px-5 pb-24 text-center reveal">
+    <div class="bg-gray-50 border border-gray-100 rounded-3xl py-14 px-6">
+      <h2 class="text-3xl font-black">Ready to skip the setup?</h2>
+      <p class="text-gray-600 mt-3 text-lg max-w-md mx-auto">Get the Laravel API Starter Kit and start building features on day one.</p>
+      <a href="https://cod3xlab.gumroad.com/l/laravel-api-starter" class="btn-buy inline-flex items-center gap-3 mt-8 text-white font-bold px-10 py-5 rounded-xl text-xl shadow-xl shadow-indigo-100">
+        <i class="fas fa-bolt"></i> Get it now · $39
+      </a>
+      <p class="text-xs text-gray-400 mt-4">One-time payment · Instant download · Unlimited projects</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-100 py-10">
+    <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 bg-indigo-600 rounded-md flex items-center justify-center text-white text-xs font-bold">L</div>
+        <span class="font-semibold text-gray-600">Laravel API Starter Kit</span>
+        <span class="text-gray-300">·</span>
+        <span>© 2026 pola5h</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="https://github.com/pola5h" target="_blank" class="hover:text-indigo-600 transition flex items-center gap-1"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://cod3xlab.gumroad.com" target="_blank" class="hover:text-indigo-600 transition">Gumroad</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ✅ Scroll reveal JS -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
